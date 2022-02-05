@@ -15,12 +15,10 @@ const Multiplicolas = () => {
     }, []);
 
     const loadQuestion = () => {
-        if (state === 1) {
-            const num1 = 1 + getRandomInt(12);
-            const num2 = 1 + getRandomInt(12);
-            setNumber1(num1); setNumber2(num2);
-            setOptions(loadOptions(num1, num2));
-        }
+        const num1 = 1 + getRandomInt(12);
+        const num2 = 1 + getRandomInt(12);
+        setNumber1(num1); setNumber2(num2);
+        setOptions(loadOptions(num1, num2));
     }
 
     const loadOptions = (num1, num2) => {
