@@ -15,10 +15,12 @@ const Multiplicolas = () => {
     }, []);
 
     const loadQuestion = () => {
-        const num1 = getRandomInt(12);
-        const num2 = getRandomInt(12);
-        setNumber1(num1); setNumber2(num2);
-        setOptions(loadOptions(num1, num2));
+        if (state === 1) {
+            const num1 = 1 + getRandomInt(12);
+            const num2 = 1 + getRandomInt(12);
+            setNumber1(num1); setNumber2(num2);
+            setOptions(loadOptions(num1, num2));
+        }
     }
 
     const loadOptions = (num1, num2) => {
@@ -30,24 +32,38 @@ const Multiplicolas = () => {
                 if (num1 * num2 !== x * y) arrPosible.push(x * y);
             }
         }
-        return getUniqueArray(arrPosible);
+
+        const shuffleArray = getShuffleArray(getUniqueArray(arrPosible));
+        const arrOptions = shuffleArray.slice(0, 3);
+        arrOptions.push(num1 * num2);
+        getShuffleArray(arrOptions);
+        return arrOptions;
     }
 
     const rangePosible = 3;
     const containInRange = (x, xMin, xMax) => x < xMin ? xMin : ( x > xMax ? xMax : x );
     const getUniqueArray = arr => [...new Set(arr)];
     const getRandomInt = max => Math.floor(Math.random() * max);
+    const getShuffleArray = (arr) => {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            // [arr[i], arr[j]] = [arr[j], arr[i]];
+            const temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+        }
+        return arr;
+    }
 
     return (
         <>
             <Title
                 state={state}
                 setState={setState}
+                loadQuestion={loadQuestion}
                 />
             <Question
                 state={state}
-                number1={number1} setNumber1={setNumber1}
-                number2={number2} setNumber2={setNumber2}
+                number1={number1}
+                number2={number2}
                 />
             <Options
                 state={state}

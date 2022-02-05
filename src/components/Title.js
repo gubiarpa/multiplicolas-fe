@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-export const Title = ({state, setState}) => {
+export const Title = ({state, loadQuestion = () => {}, setState}) => {
 
     const handleClick = () => {
-        console.log('gubiarpa is here!')
         setState(x => x === 0 ? 1 : 0);
+        if (state === 1) {
+            loadQuestion();
+        }
     }
 
     return (
@@ -19,5 +21,6 @@ export const Title = ({state, setState}) => {
 }
 
 Title.protoTypes = {
-    setState: PropTypes.func.isRequired
+    setState: PropTypes.func.isRequired,
+    loadQuestion: PropTypes.func.isRequired,
 }
