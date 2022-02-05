@@ -12,9 +12,9 @@ export const Title = ({state, loadQuestion = () => {}, setState}) => {
 
     return (
         <>
-            <div>
+            <div className="text-center mt-5">
                 <h2>Multiplicolas</h2>
-                <button onClick={handleClick}>{ state === 0 ? 'Empezar Test' : 'Detener Test' }</button>
+                <button className="mt-2" onClick={handleClick}>{ state === 0 ? 'Empezar Test' : 'Detener Test' }</button>
             </div>
         </>
     );
