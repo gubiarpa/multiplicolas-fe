@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Title } from "./Title";
 import { Question } from "./Question";
+import { Options } from "./Options";
 
 const Multiplicolas = () => {
 
@@ -9,11 +10,15 @@ const Multiplicolas = () => {
     const [number2, setNumber2] = useState(0);
     const [options, setOptions] = useState([]);
 
+    useEffect(() => {
+        loadQuestion();
+    }, []);
+
     const loadQuestion = () => {
         const num1 = getRandomInt(12);
         const num2 = getRandomInt(12);
         setNumber1(num1); setNumber2(num2);
-        console.log( loadOptions(num1, num2) );
+        setOptions(loadOptions(num1, num2));
     }
 
     const loadOptions = (num1, num2) => {
@@ -33,21 +38,21 @@ const Multiplicolas = () => {
     const getUniqueArray = arr => [...new Set(arr)];
     const getRandomInt = max => Math.floor(Math.random() * max);
 
-    useEffect(() => {
-        loadQuestion();
-    }, []);
-
     return (
         <>
             <Title
-                state={state} setState={setState}
-            />
+                state={state}
+                setState={setState}
+                />
             <Question
                 state={state}
                 number1={number1} setNumber1={setNumber1}
                 number2={number2} setNumber2={setNumber2}
-                options={options} setOptions={setOptions}
-            />
+                />
+            <Options
+                state={state}
+                options={options}
+                />
         </>
     );
 }
